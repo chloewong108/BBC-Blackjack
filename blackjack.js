@@ -22,39 +22,39 @@ function myDeck() {
     }
   }
   deck.sort(() => Math.random() - 0.5);
-  // sort() sorts the array out randomly, Math.random() gives a random number between 0-1, -0.5 will give a value of less than 0, 0 or greater than zero this determines the positioning of the cards.
+
   return deck;
 }
 
-function dealTwoCards() {
-  let myOpeningHand = [];
+function dealTwoCards(arr) {
+  let score = 0;
+  //   let myOpeningHand = [];
 
   const getCard1 = myDeck().pop();
   const getCard2 = myDeck().pop();
-  myOpeningHand.push(getCard1, getCard2);
+  //   myOpeningHand.push(getCard1, getCard2);
+  score += getValue(getCard1);
+  score += getValue(getCard2);
 
-  return myOpeningHand;
-}
+  console.log(score);
 
-function getValue() {
-  let score = 0;
-
-  const data = dealTwoCards();
-  const cardOne = data[0].split("of");
-  const cardTwo = data[1].split("of");
-
-  const value1 = cardOne[0];
-  const value2 = cardTwo[0];
-  console.log(value1);
-  if (isNaN(value1)) {
-    score += 10; // -> JQK
-  } else {
-    if (value1 === "A") {
-      score += 11;
-    }
-    score += parseInt(value1); // -> changes string to number
-  }
   return score;
 }
 
+function getValue(data) {
+  let score = 0;
+  const cardOne = data[0].split(" of ");
+  const value1 = cardOne[0];
+
+  console.log(value1);
+  console.log(isNaN(value1));
+
+  if (/\d/.test(value1) === false) {
+    if (value1 === "A") {
+      return (score += 11);
+    }
+    return (score += 10);
+  }
+  return (score += parseInt(value1));
+}
 module.exports = { myDeck, dealTwoCards, getValue };

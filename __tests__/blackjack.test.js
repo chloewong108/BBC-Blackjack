@@ -22,13 +22,22 @@ describe("Blackjack game", () => {
       const testDeck2 = myDeck();
       expect(testDeck1).not.toBe(testDeck2);
     });
-    test("should be dealt 2 cards with opening hand ", () => {
+    test("should return the total score of less than 22 when dealt an opening hand", () => {
       const testGame = dealTwoCards();
-      expect(testGame.length).toBe(2);
+      expect(typeof testGame).toBe("number");
+      expect(testGame).toBeLessThan(22);
     });
-    test("should return the score with 10 if card is NaN, JQK", () => {
-      const testGame = getValue();
-      expect().toBe(10);
+    test("should test that each card J Q or K should be worth 10", () => {
+      const testGame = getValue(["J of hearts"]);
+      expect(testGame).toBe(10);
+    });
+    test("should test that given an Ace, the card should be worth 11", () => {
+      const testGame = getValue(["A of spades"]);
+      expect(testGame).toBe(11);
+    });
+    test("should return the value of the number when passed a number", () => {
+      const testGame = getValue(["3 of hearts"]);
+      expect(testGame).toBe(3);
     });
   });
 });
