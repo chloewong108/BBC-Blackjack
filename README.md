@@ -3,7 +3,7 @@
 ## Summary
 
 This is the technical assessment for BBC Graduate Software Engineering role 2023.
-This Blackjack assesssment was written in Javascript and full TDD was used to test each scenario.
+This Blackjack assesssment was written in Javascript and full TDD was used with Jest to test each scenario.
 
 ### Getting started
 
