@@ -1,9 +1,10 @@
-const { startGame, myHand, score } = require("../blackjack");
+const { dealTwoCards, myHand, stand } = require("../blackjack");
 
 describe("Scenario 1: When im dealt my opening hand i have 2 cards.", () => {
-  test("when the game starts, it returns an array of the the score and opening 2 cards", () => {
-    const testStartGame = startGame();
-    expect(testStartGame[0]).toBeGreaterThan(0);
-    expect(testStartGame[1].length).toBe(2);
+  test("should deal me 2 cards", () => {
+    const testGame = dealTwoCards(["8 of clubs", "2 of spades"]);
+    expect(myHand.length).toBe(2);
+    const endGame = stand();
+    expect(endGame[0]).toBe(10);
   });
 });

@@ -1,7 +1,6 @@
 let score = 0;
 let myHand = [];
 let ace = 0;
-let canHit = true;
 
 function myDeck() {
   let deck = [];
@@ -35,6 +34,8 @@ function dealTwoCards(arr) {
   let cardScore = 0;
   const getCard1 = arr.pop();
   const getCard2 = arr.pop();
+  ace += aceCheck(getCard1);
+  ace += aceCheck(getCard2);
   myHand.push(getCard1, getCard2);
   cardScore += getValue(getCard1);
   cardScore += getValue(getCard2);
@@ -44,7 +45,7 @@ function dealTwoCards(arr) {
 
 function getValue(data) {
   let cardScore = 0;
-  const cardOne = data[0].split(" of ");
+  const cardOne = data.split(" of ");
   const value1 = cardOne[0];
 
   if (/\d/.test(value1) === false) {
@@ -58,16 +59,9 @@ function getValue(data) {
 
 function hit(arr) {
   const getAdditionalCard = arr.pop();
+  ace += aceCheck(getAdditionalCard);
   score += getValue(getAdditionalCard);
   return myHand.push(getAdditionalCard);
-}
-
-function startGame(arr) {
-  dealTwoCards(arr);
-  console.log(score, myHand);
-  //hit(arr);
-
-  return [score, myHand];
 }
 
 function stand() {
@@ -77,14 +71,17 @@ function stand() {
   if (score > 21) {
     message = "BUST!";
   } else {
-    if (score < 21) {
-      message = "You Win!";
+    if (score === 21) {
+      message = "Blackjack!";
+    } else {
+      message = "Hit?";
     }
   }
-  console.log(message);
+  console.log([score, message]);
+  return [score, message];
 }
 
-function aceCard(card) {
+function aceCheck(card) {
   const aceSplit = card[0].split(" of ");
   if (aceSplit[0] === "A") {
     return 1;
@@ -106,9 +103,9 @@ module.exports = {
   dealTwoCards,
   getValue,
   hit,
-  startGame,
   myHand,
-  aceCard,
+  aceCheck,
   minusAce,
   stand,
+  score,
 };
